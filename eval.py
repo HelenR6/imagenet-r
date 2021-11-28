@@ -389,7 +389,7 @@ def get_acc(loader):
     acc = num_correct / len(loader.dataset)
     print('Accuracy (%):\t\t', round(100*acc, 2))
     utils.show_calibration_results(confidence, correct)
-    np.save(acc,f'/content/gdrive/MyDrive/model_OOD_acc/imagenet-r/{sys.argv[1]}.npy')
+    np.save(f'/content/gdrive/MyDrive/model_OOD_acc/imagenet-r/{sys.argv[1]}.npy',acc)
     return acc
 
 
