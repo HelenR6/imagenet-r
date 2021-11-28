@@ -342,7 +342,7 @@ def load_model(model_type):
         del state_dict[k]
     resnet.load_state_dict(state_dict)
     return resnet
-  if model_type=='resnet50_l2_eps1' or model_type=='resnet50_l2_eps0.01' or model_type=='resnet50_l2_eps0.03' or model_type=='resnet50_l2_eps0.5' or model_type=='resnet50_l2_eps0.25' or model_type=='resnet50_l2_eps3' or model_type=='resnet50_l2_eps5' :
+  if model_type=='resnet50_l2_eps1' or model_type=='resnet50_l2_eps0.01' or model_type=='resnet50_l2_eps0.03' or model_type=='resnet50_l2_eps0.5' or model_type=='resnet50_l2_eps0.25' or model_type=='resnet50_l2_eps3' or model_type=='resnet50_l2_eps5' or model_type=='resnet50_l2_eps0.1' :
     resnet=models.resnet50(pretrained=False)
     ds = ImageNet('/tmp')
     total_resnet, checkpoint = make_and_restore_model(arch='resnet50', dataset=ds,
@@ -389,6 +389,7 @@ def get_acc(loader):
     acc = num_correct / len(loader.dataset)
     print('Accuracy (%):\t\t', round(100*acc, 2))
     utils.show_calibration_results(confidence, correct)
+    np.save(acc,f'/content/gdrive/MyDrive/model_OOD_acc/imagenet-r/{sys.argv[1]}.npy')
     return acc
 
 
