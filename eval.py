@@ -11,7 +11,7 @@ import torch.nn.functional as F
 import numpy as np
 import utils
 from tqdm import tqdm
-import pretrainedmodels
+# import pretrainedmodels
 import shutil
 import sys
 import torchvision.transforms as transforms
