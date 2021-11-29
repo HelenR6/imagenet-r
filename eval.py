@@ -374,7 +374,7 @@ def get_predictions(loader):
     with torch.no_grad():
         for data, target in loader:
             data, target = data.cuda(), target.cuda()
-            output = net(data)[:,c]
+            output = net(data)[:,imagenet_r_mask]
 
             # accuracy
             pred = output.data.max(1)[1]
