@@ -359,7 +359,7 @@ def load_model(model_type):
     resnet.load_state_dict(state_dict)
     return resnet
   
-  if model_type=="resnet_30" or model_type="resnet_0" or model_type="resnet_60" or model_type="resnet_90":
+  if model_type=="resnet_30" or model_type=="resnet_0" or model_type=="resnet_60" or model_type=="resnet_90":
     resnet=models.resnet50(pretrained=False)
     model_epoch=model_type.split('_')[1]
     checkpoint = torch.load(f'/content/gdrive/MyDrive/model_checkpoints/{model_epoch}_model_best.pth.tar',map_location=torch.device('cuda') )
