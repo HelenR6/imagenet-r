@@ -60,6 +60,23 @@ imagenet_r_loader = torch.utils.data.DataLoader(imagenet_r, batch_size=128, shuf
 #                                          num_workers=4, pin_memory=True)
 
 def load_model(model_type):
+  if model_type=="resnet50_trained_on_SIN" or model_type=="resnet50_trained_on_SIN_and_IN" or model_type=="resnet50_trained_on_SIN_and_IN_then_finetuned_on_IN":
+    state_dict = torch.load(f'/content/gdrive/MyDrive/model_checkpoints/{model_type}.pth.tar',map_location="cpu")['state_dict']
+    resnet=models.resnet50(pretrained=False)
+    for k in list(state_dict.keys()):
+        if k.startswith('module'):
+            state_dict[k[len("module."):]] = state_dict[k]
+        del state_dict[k]
+    resnet.load_state_dict(state_dict)
+    preprocess = transforms.Compose([
+    transforms.Resize(256),
+    transforms.CenterCrop(224),
+    transforms.ToTensor(),
+    transforms.Normalize(
+    mean=[0.485, 0.456, 0.406],
+    std=[0.229, 0.224, 0.225])
+    ])
+    return resnet
   if model_type=="simclr":
     # load checkpoint for simclr
     checkpoint = torch.load('/content/gdrive/MyDrive/model_checkpoints/resnet50-1x.pth')
