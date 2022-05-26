@@ -41,7 +41,7 @@ test_transform = trn.Compose(
 
 imagenet_r = dset.ImageFolder(root="/content/gdrive/MyDrive/imagenet-r", transform=test_transform)
 imagenet_r_loader = torch.utils.data.DataLoader(imagenet_r, batch_size=128, shuffle=False,
-                                         num_workers=2, pin_memory=True)
+                                         num_workers=1, pin_memory=True)
 
 # imagenet_val_location = "/home/hendrycks/datasets/imagenet/val/"
 # def create_symlinks_to_imagenet(imagenet_folder):
