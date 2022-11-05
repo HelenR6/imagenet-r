@@ -35,9 +35,12 @@ for i,index in enumerate(imagenet_r_mask):
     c.append(i)
 mean = [0.485, 0.456, 0.406]
 std = [0.229, 0.224, 0.225]
-
-test_transform = trn.Compose(
-    [trn.Resize(256), trn.CenterCrop(224), trn.ToTensor(), trn.Normalize(mean, std)])
+if sys.argv[1]=='resnet50_l2_eps0.01' or sys.argv[1]=='resnet50_l2_eps0.1' or sys.argv[1]=='resnet50_l2_eps0.03' or sys.argv[1]=='resnet50_l2_eps0.5' or sys.argv[1]=='resnet50_l2_eps0.25' or sys.argv[1]=='resnet50_l2_eps3' or sys.argv[1]=='resnet50_l2_eps5' or sys.argv[1]=='resnet50_l2_eps1'or sys.argv[1]=='resnet50_l2_eps0.05':
+  test_transform = trn.Compose(
+      [trn.Resize(256), trn.CenterCrop(224), trn.ToTensor()])
+else:
+  test_transform = trn.Compose(
+      [trn.Resize(256), trn.CenterCrop(224), trn.ToTensor(), trn.Normalize(mean, std)])
 
 imagenet_r = dset.ImageFolder(root="/content/gdrive/MyDrive/imagenet-r", transform=test_transform)
 imagenet_r_loader = torch.utils.data.DataLoader(imagenet_r, batch_size=128, shuffle=False,
